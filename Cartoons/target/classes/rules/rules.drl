@@ -1,0 +1,581 @@
+package com.sample;
+
+import com.sample.Cartoons.Answer;
+import com.sample.Cartoons.Question;
+
+import org.kie.api.runtime.KieRuntime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Arrays;
+import javax.swing.JOptionPane;
+import javax.swing.JFrame;
+
+global javax.swing.JTextArea textArea;
+
+global com.sample.GuiHandler guiHandler;
+
+rule "Start"
+when
+then
+    System.out.println("A cartoon based on a video game?");
+    
+    // Pytanie z opcjami
+    insert(guiHandler.makeQuestion("A cartoon based on a video game?", new Object[] {"Yes", "No"}));
+end
+
+rule "A cartoon based on a video game? YES"
+when
+    Question(qstext == "A cartoon based on a video game?", anstext == "Yes")
+then
+    insert(guiHandler.makeQuestion("A Nintendo franchise?", new Object[] {"Yes", "No"}));
+end
+
+rule "A cartoon based on a video game? NO"
+when
+    Question(qstext == "A cartoon based on a video game?", anstext == "No")
+then
+    insert(guiHandler.makeQuestion("A celebrity?", new Object[] {"Yes", "No"}));
+end
+
+rule "A Nintendo franchise? YES"
+when
+    Question(qstext == "A Nintendo franchise?", anstext == "Yes")
+then
+    List<String> text = Arrays.asList(
+        "The Super Mario Bros. Super Show", 
+        "Captain N The Game Master",
+        "The Adventures of Super Mario Bros. 3",
+        "Super Mario World", 
+        "The Legend of Zelda", 
+        "Pokemon"
+    );
+    String result = String.join(", ", text);
+    guiHandler.makeAnswer(result);
+    // End of path here
+end
+
+rule "A Nintendo franchise? NO"
+when
+    Question(qstext == "A Nintendo franchise?", anstext == "No")
+then
+    List<String> text = Arrays.asList(
+        "Adventures of Sonic the Hedgehog",
+        "Mega Man",
+        "Mortal Kombat Defenders of the Realm",
+        "Double Dragon",
+        "Wing Commander Academy",
+        "Street Fighter"
+    );
+    String result = String.join(", ", text);
+    guiHandler.makeAnswer(result);
+    // End of path here
+end
+
+rule "A celebrity? YES"
+when
+    Question(qstext == "A celebrity?", anstext == "Yes")
+then
+    List<String> text = Arrays.asList(
+        "Chuck Norris: Karate Kommandos", "Mister T"
+    );
+    String result = String.join(", ", text);
+    guiHandler.makeAnswer(result);
+end
+
+rule "A celebrity? NO"
+when
+    Question(qstext == "A celebrity?", anstext == "No")
+then
+    insert(guiHandler.makeQuestion("Animals, furries, and the like?", new Object[] {"Yes", "No"}));
+end
+
+rule "Animals, furries, and the like? YES"
+when
+    Question(qstext == "Animals, furries, and the like?", anstext == "Yes")
+then
+    insert(guiHandler.makeQuestion("Cats?", new Object[] {"Yes", "No"}));
+end
+
+rule "Animals, furries, and the like? NO"
+when
+    Question(qstext == "Animals, furries, and the like?", anstext == "No")
+then
+    insert(guiHandler.makeQuestion("Do you dig giant robots?", new Object[] {"Yes", "No"}));
+end
+
+rule "Cats? YES"
+when
+    Question(qstext == "Cats?", anstext == "Yes")
+then
+    List<String> text = Arrays.asList(
+        "ThunderCats","Swat Kats"
+    );
+    String result = String.join(", ", text);
+    guiHandler.makeAnswer(result);
+end
+
+rule "Cats? NO"
+when
+    Question(qstext == "Cats?", anstext == "No")
+then
+    insert(guiHandler.makeQuestion("Rodents?", new Object[] {"Yes", "No"}));
+end
+
+rule "Rodents? YES"
+when
+    Question(qstext == "Rodents?", anstext == "Yes")
+then
+    List<String> text = Arrays.asList(
+        "Biker Mice from Mars",
+         "Danger Mouse",
+         "Chip N Dale Rescue Rangers"
+    );
+    String result = String.join(", ", text);
+    guiHandler.makeAnswer(result);
+end
+
+rule "Rodents? NO"
+when
+    Question(qstext == "Rodents?", anstext == "No")
+then
+    insert(guiHandler.makeQuestion("Dinosaurs?", new Object[] {"Yes", "No"}));
+end
+
+rule "Dinosaurs? YES"
+when
+    Question(qstext == "Dinosaurs?", anstext == "Yes")
+then
+    List<String> text = Arrays.asList(
+        "Dinosaucers",
+        "Cadillacs and Dinosaurs",
+        "Extreme Dinosaurs",
+        "Dino Riders"
+    );
+    String result = String.join(", ", text);
+    guiHandler.makeAnswer(result);
+end
+
+rule "Dinosaurs? NO"
+when
+    Question(qstext == "Dinosaurs?", anstext == "No")
+then
+    insert(guiHandler.makeQuestion("Ducks?", new Object[] {"Yes", "No"}));
+end
+
+rule "Ducks? YES"
+when
+    Question(qstext == "Ducks?", anstext == "Yes")
+then
+    List<String> text = Arrays.asList(
+        "Count Duckula",
+        "Duck Tales",
+        "Darkwing Duck"
+    );
+    String result = String.join(", ", text);
+    guiHandler.makeAnswer(result);
+end
+
+rule "Ducks? NO"
+when
+    Question(qstext == "Ducks?", anstext == "No")
+then
+    insert(guiHandler.makeQuestion("Bears?", new Object[] {"Yes", "No"}));
+end
+
+rule "Bears? YES"
+when
+    Question(qstext == "Bears?", anstext == "Yes")
+then
+    List<String> text = Arrays.asList(
+        "TaleSpin",
+        "Disney's Adventures of Gummy Bears",
+        "The Care Bears"
+    );
+    String result = String.join(", ", text);
+    guiHandler.makeAnswer(result);
+end
+
+rule "Bears? NO"
+when
+    Question(qstext == "Bears?", anstext == "No")
+then
+    insert(guiHandler.makeQuestion("Monkeys?", new Object[] {"Yes", "No"}));
+end
+
+rule "Monkeys? YES"
+when
+    Question(qstext == "Monkeys?", anstext == "Yes")
+then
+    List<String> text = Arrays.asList(
+        "Captain Siman and the Space Monkeys"
+    );
+    String result = String.join(", ", text);
+    guiHandler.makeAnswer(result);
+end
+
+rule "Monkeys? NO"
+when
+    Question(qstext == "Monkeys?", anstext == "No")
+then
+    insert(guiHandler.makeQuestion("Cows?", new Object[] {"Yes", "No"}));
+end
+
+rule "Cows? YES"
+when
+    Question(qstext == "Cows?", anstext == "Yes")
+then
+    List<String> text = Arrays.asList(
+        "Wild West Cowboys of Moo Mesa"
+    );
+    String result = String.join(", ", text);
+    guiHandler.makeAnswer(result);
+end
+
+rule "Cows? NO"
+when
+    Question(qstext == "Cows?", anstext == "No")
+then
+    insert(guiHandler.makeQuestion("Godless abominations?", new Object[] {"Yes", "No"}));
+end
+
+rule "Godless abominations? YES"
+when
+    Question(qstext == "Godless abominations?", anstext == "Yes")
+then
+    List<String> text = Arrays.asList(
+        "Smurfs",
+        "Snorks"
+    );
+    String result = String.join(", ", text);
+    guiHandler.makeAnswer(result);
+end
+
+rule "Godless abominations? NO"
+when
+    Question(qstext == "Godless abominations?", anstext == "No")
+then
+    List<String> text = Arrays.asList(
+        "Teenage Mutant Ninja Turtles",
+        "Street Sharks",
+        "Gargoyles"
+    );
+    String result = String.join(", ", text);
+    guiHandler.makeAnswer(result);
+end
+
+rule "Do you dig giant robots? YES"
+when
+    Question(qstext == "Do you dig giant robots?", anstext == "Yes")
+then
+    List<String> text = Arrays.asList(
+        "Robotech",
+        "Voltron",
+        "Transformers"
+    );
+    String result = String.join(", ", text);
+    guiHandler.makeAnswer(result);
+end
+
+
+rule "Do you dig giant robots? NO"
+when
+    Question(qstext == "Do you dig giant robots?", anstext == "No")
+then
+    insert(guiHandler.makeQuestion("A cartoon based on a movie?", new Object[] {"Yes", "No"}));
+end
+
+rule "A cartoon based on a movie? YES"
+when
+    Question(qstext == "A cartoon based on a movie?", anstext == "Yes")
+then
+    insert(guiHandler.makeQuestion("An R-rated movie?", new Object[] {"Yes", "No"}));
+end
+
+rule "A cartoon based on a movie? NO"
+when
+    Question(qstext == "A cartoon based on a movie?", anstext == "No")
+then
+    insert(guiHandler.makeQuestion("Do you want a post-apocalyptic setting?", new Object[] {"Yes", "No"}));
+end
+
+rule "An R-rated movie? YES"
+when
+    Question(qstext == "An R-rated movie?", anstext == "Yes")
+then
+    List<String> text = Arrays.asList(
+        "Rambo and the Force of Freedom",
+        "Robocop: The Animated Series",
+        "Highlander: The Animated Series"
+    );
+    String result = String.join(", ", text);
+    guiHandler.makeAnswer(result);
+end
+
+rule "An R-rated movie? NO"
+when
+    Question(qstext == "An R-rated movie?", anstext == "No")
+then
+    List<String> text = Arrays.asList(
+        "James Bond Jr",
+        "The Real Ghostbusters",
+        "Extreme Ghostbusters",
+        "Star Wars: Ewoks",
+        "Star Wars: Droids"
+    );
+    String result = String.join(", ", text);
+    guiHandler.makeAnswer(result);
+end
+
+rule "Do you want a post-apocalyptic setting? YES"
+when
+    Question(qstext == "Do you want a post-apocalyptic setting?", anstext == "Yes")
+then
+    List<String> text = Arrays.asList(
+        "Cadillacs and Dinosaurs",
+	    "Spiral Zone",
+	    "Highlander: The Animated Series"
+    );
+    String result = String.join(", ", text);
+    guiHandler.makeAnswer(result);
+end
+
+rule "Do you want a post-apocalyptic setting? NO"
+when
+    Question(qstext == "Do you want a post-apocalyptic setting?", anstext == "No")
+then
+    insert(guiHandler.makeQuestion("Swords and sorcery?", new Object[] {"Yes", "No"}));
+end
+
+rule "Swords and sorcery? YES"
+when
+    Question(qstext == "Swords and sorcery?", anstext == "Yes")
+then
+    List<String> text = Arrays.asList(
+        "The Pirates of Dark Water",
+        "Thundarr and Barbarian",
+        "Visionaries",
+        "Dungeons and Dragons",
+        "\nShe-Ra Princess of Power",
+        "He-Man and the Masters of the Universe",
+        "Conan the Adventurer",
+        "King Arthur and the Knights of Justice"
+    );
+    String result = String.join(", ", text);
+    guiHandler.makeAnswer(result);
+end
+
+rule "Swords and sorcery? NO"
+when
+    Question(qstext == "Swords and sorcery?", anstext == "No")
+then
+    insert(guiHandler.makeQuestion("Military and law enforcement?", new Object[] {"Yes", "No"}));
+end
+
+rule "Military and law enforcement? YES"
+when
+    Question(qstext == "Military and law enforcement?", anstext == "Yes")
+then
+    List<String> text = Arrays.asList(
+        "C.O.P.S",
+        "G.I: Joe",
+        "M.A.S.K",
+        "Exosquad",
+        "Spiral Zone",
+        "Centurions",
+        "Sam and Max: Freelance Police",
+        "Inspector Gadget",
+        "BraveStarr",
+        "The Adventures of the Galaxy Rangers",
+        "Sky Commanders",
+        "SilverHawks"
+    );
+    String result = String.join(", ", text);
+    guiHandler.makeAnswer(result);
+end
+
+rule "Military and law enforcement? NO"
+when
+    Question(qstext == "Military and law enforcement?", anstext == "No")
+then
+    insert(guiHandler.makeQuestion("Space?", new Object[] {"Yes", "No"}));
+end
+
+rule "Space? YES"
+when
+    Question(qstext == "Space?", anstext == "Yes")
+then
+    List<String> text = Arrays.asList(
+        "Captain Siman and the Space Monkeys",
+        "Jayce and th Wheeled Warriors",
+        "Exosquad",
+        "BraveStarr",
+        "The Adventures of the Galaxy Rangers",
+        "SilverHawks"
+    );
+    String result = String.join(", ", text);
+    guiHandler.makeAnswer(result);
+end
+
+rule "Space? NO"
+when
+    Question(qstext == "Space?", anstext == "No")
+then
+    insert(guiHandler.makeQuestion("Cowboys?", new Object[] {"Yes", "No"}));
+end
+
+rule "Cowboys? YES"
+when
+    Question(qstext == "Cowboys?", anstext == "Yes")
+then
+    List<String> text = Arrays.asList(
+        "Wild Wes Cowboys of Moo Mesa",
+        "BraveStarr",
+        "The Adventures of the Galaxy Rangers"
+    );
+    String result = String.join(", ", text);
+    guiHandler.makeAnswer(result);
+end
+
+rule "Cowboys? NO"
+when
+    Question(qstext == "Cowboys?", anstext == "No")
+then
+    insert(guiHandler.makeQuestion("Do you want to understand what's going on?", new Object[] {"Yes", "No"}));
+end
+
+rule "Do you want to understand what's going on? YES"
+when
+    Question(qstext == "Do you want to understand what's going on?", anstext == "Yes")
+then
+    insert(guiHandler.makeQuestion("Kids doing awesome stuff?", new Object[] {"Yes", "No"}));
+end
+
+rule "Do you want to understand what's going on? NO"
+when
+    Question(qstext == "Do you want to understand what's going on?", anstext == "No")
+then
+    insert(guiHandler.makeQuestion("In an awesome way?", new Object[] {"Yes", "No"}));
+end
+
+rule "In an awesome way? YES"
+when
+    Question(qstext == "In an awesome way?", anstext == "Yes")
+then
+    List<String> text = Arrays.asList(
+		"Inhumanoids"
+    );
+    String result = String.join(", ", text);
+    guiHandler.makeAnswer(result);
+end
+
+rule "In an awesome way? NO"
+when
+    Question(qstext == "In an awesome way?", anstext == "No")
+then
+    List<String> text = Arrays.asList(
+		"Aeon Flux"
+    );
+    String result = String.join(", ", text);
+    guiHandler.makeAnswer(result);
+end
+
+rule "Kids doing awesome stuff? YES"
+when
+    Question(qstext == "Kids doing awesome stuff?", anstext == "Yes")
+then
+    insert(guiHandler.makeQuestion("In an educational manner?", new Object[] {"Yes", "No"}));
+end
+
+rule "Kids doing awesome stuff? NO"
+when
+    Question(qstext == "Kids doing awesome stuff?", anstext == "No")
+then
+    insert(guiHandler.makeQuestion("Do you like computers?", new Object[] {"Yes", "No"}));
+end
+
+rule "In an educational manner? YES"
+when
+    Question(qstext == "In an educational manner?", anstext == "Yes")
+then
+    List<String> text = Arrays.asList(
+        "The Magic School Bus",
+        "Captain Planet and the Planeteers"
+    );
+    String result = String.join(", ", text);
+    guiHandler.makeAnswer(result);
+end
+
+rule "In an educational manner? NO"
+when
+    Question(qstext == "In an educational manner?", anstext == "No")
+then
+    List<String> text = Arrays.asList(
+        "Bionic six",
+        "The Real Adventures of Johnny Quest",
+        "Mighty Max"
+    );
+    String result = String.join(", ", text);
+    guiHandler.makeAnswer(result);
+end
+
+rule "Do you like computers? YES"
+when
+    Question(qstext == "Do you like computers?", anstext == "Yes")
+then
+    List<String> text = Arrays.asList(
+        "ReBoot"
+    );
+    String result = String.join(", ", text);
+    guiHandler.makeAnswer(result);
+end
+
+rule "Do you like computers? No"
+when
+    Question(qstext == "Do you like computers?", anstext == "No")
+then
+    insert(guiHandler.makeQuestion("Something truly outrageous?", new Object[] {"Yes", "No"}));
+end
+
+rule "Something truly outrageous? YES"
+when
+    Question(qstext == "Something truly outrageous?", anstext == "Yes")
+then
+    List<String> text = Arrays.asList(
+        "Jem"
+    );
+    String result = String.join(", ", text);
+    guiHandler.makeAnswer(result);
+end
+
+rule "Something truly outrageous? NO"
+when
+    Question(qstext == "Something truly outrageous?", anstext == "No")
+then
+    insert(guiHandler.makeQuestion("The undead?", new Object[] {"Yes", "No"}));
+end
+
+rule "The undead? YES"
+when
+    Question(qstext == "The undead?", anstext == "Yes")
+then
+    List<String> text = Arrays.asList(
+        "Mummies Alive",
+        "Skeleton Warriors"
+    );
+    String result = String.join(", ", text);
+    guiHandler.makeAnswer(result);
+end
+
+rule "The undead? NO"
+when
+    Question(qstext == "The undead?", anstext == "No")
+then
+    List<String> text = Arrays.asList(
+        "The world of David the Gnome"
+    );
+    String result = String.join(", ", text);
+    guiHandler.makeAnswer(result);
+end
+
+
+
